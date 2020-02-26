@@ -101,14 +101,14 @@ Run consumer and sender:
 ```bash
 # shell 1
 $ go run main.go 
-Please insert runner [sender/receiver]:receiver
-2020/02/26 16:15:00 Waiting for messages....
+Please insert runner [sender/receiver]:sender
+2020/02/26 18:11:27 Message sent on msg-qu: demo text
 
 # shell 2
 $ go run main.go 
-Please insert runner [sender/receiver]:sender
-2020/02/26 16:16:29 Message sent on msg-qu: demo text
-
+Please insert runner [sender/receiver]:receiver
+2020/02/26 18:11:00 Waiting for messages....
+2020/02/26 18:11:27 Received: demo text
 
 ```
 
