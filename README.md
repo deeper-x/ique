@@ -2,6 +2,9 @@
 
 RabbitMQ with Golang. Producer->Consumer model, with queue 
 
+![Go](https://github.com/deeper-x/ique/workflows/Go/badge.svg)
+
+
 ### Prerequisites
 
 You need go, and docker
