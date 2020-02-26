@@ -9,6 +9,7 @@ import (
 
 	"github.com/deeper-x/ique/client"
 	"github.com/deeper-x/ique/configuration"
+	"github.com/deeper-x/ique/myutils"
 	"github.com/deeper-x/ique/server"
 )
 
@@ -29,11 +30,15 @@ func main() {
 	switch {
 	case inVal == "receiver":
 		agent := server.Agent{}
-		server.Run(&agent, name)
+		err = server.Run(&agent, name)
+
+		myutils.FailsOnError(err, "Failed running receiver...")
 
 	case inVal == "sender":
 		pitch := client.Pitch{}
-		client.Run(&pitch, name, "demo text")
+		err := client.Run(&pitch, name, "demo text")
+
+		myutils.FailsOnError(err, "Failed running sender...")
 
 	default:
 		log.Println("not managed...")
