@@ -1,7 +1,5 @@
 # iQue
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb8ee4ca23764801b9274e5d18755f38)](https://app.codacy.com/manual/deeper-x/ique?utm_source=github.com&utm_medium=referral&utm_content=deeper-x/ique&utm_campaign=Badge_Grade_Settings)
-
 RabbitMQ with Golang. Producer->Consumer model, with queue 
 
 ![Go](https://github.com/deeper-x/ique/workflows/Go/badge.svg)
