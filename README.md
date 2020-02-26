@@ -3,6 +3,7 @@
 RabbitMQ with Golang. Producer->Consumer model, with queue 
 
 ![Go](https://github.com/deeper-x/ique/workflows/Go/badge.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7b9c3fd94126499098ace12437471384)](https://www.codacy.com/manual/deeper-x/ique?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=deeper-x/ique&amp;utm_campaign=Badge_Grade)
 
 
 ### Prerequisites
