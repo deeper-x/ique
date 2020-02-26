@@ -68,26 +68,11 @@ $ go build
 
 ```
 
-### Usage
+### Deployment and usage (development)
 
 [WIP] In this 1st release, sender push a default message (demo text) to a default queue (msg-qu). Best yet to come.
 
-```bash
-# shell 1
-$ go run main.go 
-Please insert runner [sender/receiver]:receiver
-2020/02/26 16:15:00 Waiting for messages....
-
-# shell 2
-$ go run main.go 
-Please insert runner [sender/receiver]:sender
-2020/02/26 16:16:29 Message sent on msg-qu: demo text
-
-
-```
-
-## Deployment
-
+RabbitMQ server:
 ```bash
 $ bash ./rabbitmq.sh
 2020-02-26 11:02:40.246 [info] <0.277.0> 
@@ -109,6 +94,22 @@ $ bash ./rabbitmq.sh
   Logs: <stdout>
 
   Config file(s): /etc/rabbitmq/rabbitmq.conf
+```
+
+Run consumer and sender:
+
+```bash
+# shell 1
+$ go run main.go 
+Please insert runner [sender/receiver]:receiver
+2020/02/26 16:15:00 Waiting for messages....
+
+# shell 2
+$ go run main.go 
+Please insert runner [sender/receiver]:sender
+2020/02/26 16:16:29 Message sent on msg-qu: demo text
+
+
 ```
 
 ## Unit test
