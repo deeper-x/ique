@@ -1,7 +1,12 @@
 package configuration
 
+import "fmt"
+
 // QueueName is the declared Name
 const QueueName = "mesg-qu"
 
+// RabbitmqURI is the rabbitmq server endpoint
+const RabbitmqURI = "localhost:5672"
+
 // ConnString redis connection
-const ConnString = "amqp://guest:guest@localhost:5672/"
+var ConnString = fmt.Sprintf("amqp://guest:guest@%s/", RabbitmqURI)
