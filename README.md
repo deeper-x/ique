@@ -117,7 +117,7 @@ Please insert runner [receiver/listener]:listener
 $ go run main.go
 Please insert runner [listener/receiver]:receiver
 2020/02/26 18:11:00 Waiting for messages....
-2020/02/26 18:11:27 Received: demo text
+2020/02/26 18:11:27 Received: file content
 
 ```
 
