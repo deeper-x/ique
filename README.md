@@ -9,7 +9,7 @@ Given an input directory, system listens for file creation, responding with cont
 
 Systems producing testual resources (reports, sensor data, ...) made to be parsed and sent to a queue as soon as they're created.
 
-[ique](./assets/ique.png)
+![ique](https://github.com/deeper-x/ique/blob/master/assets/ique.png)
 
 
 ### Prerequisites
