@@ -7,8 +7,7 @@ Given an input directory, system listens for file creation, responding with cont
 
 ## Use case
 
-Systems producing files who needs to be parsed and sent to a queue as soon as they're created.
-RabbitMQ with Golang. 
+Systems producing testual resources (reports, sensor data, ...) made to be parsed and sent to a queue as soon as they're created.
 
 
 ### Prerequisites
