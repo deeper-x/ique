@@ -10,3 +10,6 @@ const RabbitmqURI = "localhost:5672"
 
 // ConnString redis connection
 var ConnString = fmt.Sprintf("amqp://guest:guest@%s/", RabbitmqURI)
+
+// MonitoredDir directory
+var MonitoredDir = "/tmp/monitor"

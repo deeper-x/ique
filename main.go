@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/deeper-x/ique/client"
 	"github.com/deeper-x/ique/configuration"
+	"github.com/deeper-x/ique/filesys"
 	"github.com/deeper-x/ique/myutils"
 	"github.com/deeper-x/ique/network"
 	"github.com/deeper-x/ique/server"
@@ -21,11 +21,11 @@ func main() {
 	rabbitService := network.Service{URI: configuration.RabbitmqURI}
 
 	if !rabbitService.IsRunning() {
-		log.Fatalf("%s not available", rabbitService.URI)
+		log.Fatalf("Rabbitmq unavailable on %s", rabbitService.URI)
 	}
 
 	// 2 - User input
-	fmt.Print("Please insert runner [sender/receiver]:")
+	fmt.Print("Please insert runner [receiver/listener]:")
 	reader := bufio.NewReader(os.Stdin)
 
 	input, err := reader.ReadString('\n')
@@ -44,13 +44,14 @@ func main() {
 
 		myutils.FailsOnError(err, "Failed running receiver...")
 
-	case inVal == "sender":
-		pitch := client.Pitch{}
-		err := client.Run(&pitch, name, "demo text")
+	case inVal == "listener":
+		fileManager := filesys.FileManager{Pwd: configuration.MonitoredDir}
+		err = filesys.RunListen(fileManager)
 
-		myutils.FailsOnError(err, "Failed running sender...")
+		myutils.FailsOnError(err, "Failed running listener...")
 
 	default:
 		log.Println("not managed...")
 	}
+
 }

@@ -1,10 +1,14 @@
 # iQue
 
-RabbitMQ with Golang. Producer->Consumer model, with queue 
+Given an input directory, system listens for file creation, responding with content parsing, reading and producing content for a receiver.
+
+## Use case
+
+Systems producing files who needs to be parsed and sent to a queue as soon as they're created.
+RabbitMQ with Golang. Producer->Consumer model, with queue and resource listener.
 
 ![Go](https://github.com/deeper-x/ique/workflows/Go/badge.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7b9c3fd94126499098ace12437471384)](https://www.codacy.com/manual/deeper-x/ique?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=deeper-x/ique&amp;utm_campaign=Badge_Grade)
-
 
 ### Prerequisites
 
@@ -96,17 +100,22 @@ $ bash ./rabbitmq.sh
   Config file(s): /etc/rabbitmq/rabbitmq.conf
 ```
 
-Run consumer and sender:
+Run receiver and listener:
 
 ```bash
-# shell 1
-$ go run main.go 
-Please insert runner [sender/receiver]:sender
-2020/02/26 18:11:27 Message sent on msg-qu: demo text
+# shell 1 - listener
+[deeper-x@Aspire-A315-21](master)$ go run main.go
+Please insert runner [receiver/listener]:listener
+2020/02/28 00:27:18 Monitoring /tmp/monitor ...
+# FILE CREATION:
+# $ echo "file content" > /tmp/monitor/test.txt
+2020/02/28 00:27:33 #TODO trigger deletion of /tmp/monitor/test.txt
+2020/02/28 00:27:33 Message sent on mesg-qu: file content
 
-# shell 2
-$ go run main.go 
-Please insert runner [sender/receiver]:receiver
+
+# shell 2 - receiver
+$ go run main.go
+Please insert runner [listener/receiver]:receiver
 2020/02/26 18:11:00 Waiting for messages....
 2020/02/26 18:11:27 Received: demo text
 
