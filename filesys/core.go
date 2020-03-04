@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 
+	"github.com/aws/aws-sdk-go/service/sns"
 	"github.com/deeper-x/ique/client"
 	"github.com/deeper-x/ique/configuration"
 	"github.com/deeper-x/ique/myutils"
@@ -73,8 +74,10 @@ func (fm FileManager) AddListener() error {
 					myutils.FailsOnError(err, "Failed running sender...")
 
 					// SNS Push
-					awsObj := snstools.BuildInstance()
-					_, err = awsObj.Send(dataContent)
+					sess := snstools.NewSession()
+					awsObj := snstools.BuildInstance(sess)
+					svc := sns.New(sess)
+					_, err = awsObj.Send(svc, dataContent)
 
 					myutils.FailsOnError(err, "Failed to send message to AWS::SNS")
 				}

@@ -5,10 +5,8 @@ import "testing"
 var awsObj = MockAWS{}
 
 func TestPushToSNS(t *testing.T) {
-	awsObj, err := MockBuildInstance()
-	if err != nil {
-		t.Errorf("Error in building session: %v", err)
-	}
+	sess := NewSession()
+	awsObj := BuildInstance(sess)
 
 	output, err := PushToSNS(awsObj, "demo from test")
 	if err != nil {
