@@ -9,6 +9,7 @@ import (
 	"github.com/deeper-x/ique/client"
 	"github.com/deeper-x/ique/configuration"
 	"github.com/deeper-x/ique/myutils"
+	"github.com/deeper-x/ique/snstools"
 	"github.com/fsnotify/fsnotify"
 )
 
@@ -27,7 +28,7 @@ const name = configuration.QueueName
 
 // ReadFileContent read file content and return it
 func (fm FileManager) ReadFileContent(fileName string) (string, error) {
-	filePath := fmt.Sprintf("%s/%s", fm.Pwd, fileName)
+	filePath := fmt.Sprintf("%s", fileName)
 	data, err := ioutil.ReadFile(filePath)
 
 	if err != nil {
@@ -59,15 +60,23 @@ func (fm FileManager) AddListener() error {
 				}
 
 				if event.Op.String() == "CREATE" {
-					log.Printf("#TODO trigger push + deletion of %s\n", event.Name)
-					// fileManager := filesys.FileManager{Pwd: configuration.MonitoredDir}
-					dataContent, err := fm.ReadFileContent("test.txt")
+					created := event.Name
+					log.Printf("#TODO trigger push + deletion of %s\n", created)
+
+					// Listening dir content
+					dataContent, err := fm.ReadFileContent(created)
 					myutils.FailsOnError(err, "Failed to read file content...")
 
 					pitch := client.Pitch{}
 					err = client.Run(&pitch, name, dataContent)
 
 					myutils.FailsOnError(err, "Failed running sender...")
+
+					// SNS Push
+					awsObj := snstools.BuildInstance()
+					_, err = awsObj.Send(dataContent)
+
+					myutils.FailsOnError(err, "Failed to send message to AWS::SNS")
 				}
 
 			case err, ok := <-watcher.Errors:
