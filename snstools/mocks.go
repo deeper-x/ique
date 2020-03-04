@@ -1,28 +1,44 @@
 package snstools
 
 import (
-	"github.com/aws/aws-sdk-go/aws/session"
+	"log"
+
+	"github.com/aws/aws-sdk-go/service/sns"
 	"github.com/aws/aws-sdk-go/service/sns/snsiface"
+	"github.com/deeper-x/ique/configuration"
 )
 
-// MockAWS represents the AWS session
+// MockAWS represents the AWS data
 type MockAWS struct {
-	Instance *session.Session
-	Topic    string
+	Topic  string
+	Client snsiface.SNSAPI
 }
 
-// MockNewSession create mock aws session
-func MockNewSession() *session.Session {
-	return &session.Session{}
+// Define a mock struct to be used in your unit tests of myFunc.
+type mockSNSClient struct {
+	snsiface.SNSAPI
 }
 
-// MockBuildInstance create aws session with stored ~/.aws credentials
-func MockBuildInstance(sess *session.Session) MockAWS {
-	// sess, err := session.NewSession(&aws.Config{Region: aws.String("eu-west-3")})
-	return MockAWS{Instance: sess}
+func (m *mockSNSClient) AddPermission(input *sns.AddPermissionInput) (*sns.AddPermissionOutput, error) {
+	// mock response/functionality
+	return &sns.AddPermissionOutput{}, nil
 }
 
-// Send push to aws SNS
-func (s MockAWS) Send(sns *snsiface.SNSAPI, msg string) (string, error) {
+// Send notification to aws SNS
+func (s MockAWS) Send(msg string) (string, error) {
+	s.Topic = configuration.AwsTopic
+
+	result, err := s.Client.Publish(&sns.PublishInput{
+		Message:  &msg,
+		TopicArn: &s.Topic,
+	})
+
+	if err != nil {
+		log.Println(err.Error())
+		return msg, err
+	}
+
+	log.Println(*result.MessageId)
+
 	return msg, nil
 }

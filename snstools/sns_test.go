@@ -1,14 +1,15 @@
 package snstools
 
-import "testing"
+import (
+	"testing"
+)
 
 var awsObj = MockAWS{}
 
 func TestPushToSNS(t *testing.T) {
-	sess := NewSession()
-	awsObj := BuildInstance(sess)
+	mockClient := NewClient()
 
-	output, err := PushToSNS(awsObj, "demo from test")
+	output, err := PushToSNS(mockClient, "demo from test")
 	if err != nil {
 		t.Errorf("Error in sending %v to SNS: %v", output, err)
 	}

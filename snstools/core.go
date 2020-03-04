@@ -16,29 +16,24 @@ type Sender interface {
 
 // AWS represents the AWS data
 type AWS struct {
-	Instance *session.Session
-	Topic    string
+	Topic  string
+	Client snsiface.SNSAPI
 }
 
-// NewSession return AWS session
-func NewSession() *session.Session {
+// NewClient return AWS session
+func NewClient() snsiface.SNSAPI {
 	instance := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 
-	return instance
-}
-
-// BuildInstance AWS session with stored ~/.aws credentials
-func BuildInstance(sess *session.Session) AWS {
-	return AWS{Instance: sess}
+	return sns.New(instance)
 }
 
 // Send notification to aws SNS
-func (s AWS) Send(svc *sns.SNS, msg string) (string, error) {
+func (s AWS) Send(msg string) (string, error) {
 	s.Topic = configuration.AwsTopic
 
-	result, err := svc.Publish(&sns.PublishInput{
+	result, err := s.Client.Publish(&sns.PublishInput{
 		Message:  &msg,
 		TopicArn: &s.Topic,
 	})
@@ -54,13 +49,11 @@ func (s AWS) Send(svc *sns.SNS, msg string) (string, error) {
 }
 
 // PushToSNS implements the sns pushing
-func PushToSNS(s AWS, msg string) (string, error) {
-	sess := NewSession()
-	awsObj := BuildInstance(sess)
+func PushToSNS(client snsiface.SNSAPI, msg string) (string, error) {
+	a := AWS{}
+	a.Client = client
 
-	svc := sns.New(s.Instance)
-
-	res, err := awsObj.Send(svc, msg)
+	res, err := a.Send(msg)
 	if err != nil {
 		return res, err
 	}
