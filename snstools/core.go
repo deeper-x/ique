@@ -1,3 +1,4 @@
+// Package snstools is the AWS::SNS core component
 package snstools
 
 import (

@@ -1,3 +1,4 @@
+// Package configuration defines all settings resources
 package configuration
 
 import "fmt"

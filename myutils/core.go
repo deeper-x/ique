@@ -1,3 +1,4 @@
+// Package myutils has some helpers and utils
 package myutils
 
 import "log"

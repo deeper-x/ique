@@ -1,3 +1,4 @@
+// Package filesys is the OS/filesystem management package
 package filesys
 
 import (

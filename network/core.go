@@ -1,3 +1,4 @@
+// Package network is delegated to network properties and actions
 package network
 
 import (

@@ -1,3 +1,4 @@
+// Package client is the component delegated to the content pushing
 package client
 
 import (

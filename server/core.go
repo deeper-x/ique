@@ -1,3 +1,4 @@
+// Package server is the queue content server for message management
 package server
 
 import (
