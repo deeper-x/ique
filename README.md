@@ -1,11 +1,16 @@
 ![Go](https://github.com/deeper-x/ique/workflows/Go/badge.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7b9c3fd94126499098ace12437471384)](https://www.codacy.com/manual/deeper-x/ique?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=deeper-x/ique&amp;utm_campaign=Badge_Grade)
 
-# iQue
+# iQue - Description
 
-System listens for file creation in a monitored directory, producing content parsing, reading and sending to a receiver (is a typical Producer->Consumer model with queue, handled by a monitoring agent).
+Listening for file creation in a monitored directory, producing: 
+- content parsing 
+- reading and sending to local receiver
+- notifing SQS w/ SNS
 
-## AWS SQS<SNS integration
+Basically is a typical Producer->Consumer model with queue, handled by a monitoring agent. AWS integration allows to publish to a queue SQS with subscription on SNS topic. 
+
+## AWS SQS<SNS integration details
 
 In order to build a public service, resource content is delivered to distributed applications with polling model SQS/SNS on AWS as well: given a notifier's topic [AWS::SNS], registered queue service [AWS::SQS] subscription allows message to be avaible for polling, decoupling sending & receiving, not requiring to be concurrently available and persisting for later time consumption.
 
