@@ -3,10 +3,10 @@
 
 # iQue - Description
 
-Listening for file creation in a monitored directory, producing: 
+Built on two components (listener/receiver), iQue listens for file creation in a monitored directory, producing: 
 - content parsing 
 - reading and sending to local receiver
-- notifing SQS w/ SNS
+- notification on AWS::SQS w/ SNS
 
 Basically is a typical Producer->Consumer model with queue, handled by a monitoring agent. AWS integration allows to publish to a queue SQS with subscription on SNS topic. 
 
