@@ -3,14 +3,23 @@
 
 # iQue
 
-Given an input directory, system listens for file creation, responding with content parsing, reading and sending to a receiver. Is a typical Producer->Consumer model with queue, handled by a monitoring agent.
+System listens for file creation in a monitored directory, producing content parsing, reading and sending to a receiver (is a typical Producer->Consumer model with queue, handled by a monitoring agent).
+
+## AWS SQS<SNS integration
+
+In order to build a public service, resource content is delivered to distributed applications with polling model SQS/SNS on AWS as well: given a notifier's topic [AWS::SNS], registered queue service [AWS::SQS] subscription allows message to be avaible for polling, decoupling sending & receiving, not requiring to be concurrently available and persisting for later time consumption.
+
+## TODO
+
+1. Topic definition is passed via configuration. Should be injected in call via environment.
+
+2. User should be able to receive AWS::SQS queue data
 
 ## Use case
 
 Systems producing testual resources (reports, sensor data, ...) made to be parsed and sent to a queue as soon as they're created.
 
 ![ique](https://github.com/deeper-x/ique/blob/master/assets/ique.png)
-
 
 ### Prerequisites
 
