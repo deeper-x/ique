@@ -20,6 +20,9 @@ func TestPushToSNS(t *testing.T) {
 		Publish(&sns.PublishInput{Message: &msg, TopicArn: &topic}).
 		Return(&sns.PublishOutput{MessageId: &msg}, nil)
 
-	PushToSNS(mockSNSAPI, msg)
+	_, err := PushToSNS(mockSNSAPI, msg)
 
+	if err != nil {
+		t.Errorf("Error in pushing SNS: %v", err)
+	}
 }

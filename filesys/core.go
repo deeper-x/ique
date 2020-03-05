@@ -2,7 +2,6 @@ package filesys
 
 import (
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"log"
 
@@ -28,8 +27,7 @@ const name = configuration.QueueName
 
 // ReadFileContent read file content and return it
 func (fm FileManager) ReadFileContent(fileName string) (string, error) {
-	filePath := fmt.Sprintf("%s", fileName)
-	data, err := ioutil.ReadFile(filePath)
+	data, err := ioutil.ReadFile(fileName)
 
 	if err != nil {
 		return "", err
