@@ -6,6 +6,7 @@ require (
 	github.com/aws/aws-sdk-go v1.29.16
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.4.7
+	github.com/golang/mock v1.4.1
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/streadway/amqp v0.0.0-20200108173154-1c71cc93ed71
 	golang.org/x/net v0.0.0-20200301022130-244492dfa37a // indirect

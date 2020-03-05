@@ -30,7 +30,7 @@ func NewClient() snsiface.SNSAPI {
 }
 
 // Send notification to aws SNS
-func (s AWS) Send(msg string) (string, error) {
+func (s *AWS) Send(msg string) (string, error) {
 	s.Topic = configuration.AwsTopic
 
 	result, err := s.Client.Publish(&sns.PublishInput{
@@ -43,15 +43,14 @@ func (s AWS) Send(msg string) (string, error) {
 		return msg, err
 	}
 
-	log.Println(*result.MessageId)
+	log.Println(*result)
 
 	return msg, nil
 }
 
 // PushToSNS implements the sns pushing
 func PushToSNS(client snsiface.SNSAPI, msg string) (string, error) {
-	a := AWS{}
-	a.Client = client
+	a := AWS{Client: client}
 
 	res, err := a.Send(msg)
 	if err != nil {

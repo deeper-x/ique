@@ -8,29 +8,24 @@ import (
 	"github.com/deeper-x/ique/configuration"
 )
 
-// MockAWS represents the AWS data
+// MockAWS Define a mock struct to be used in your unit tests of myFunc.
 type MockAWS struct {
 	Topic  string
 	Client snsiface.SNSAPI
 }
 
-// Define a mock struct to be used in your unit tests of myFunc.
-type mockSNSClient struct {
-	snsiface.SNSAPI
-}
-
-func (m *mockSNSClient) AddPermission(input *sns.AddPermissionInput) (*sns.AddPermissionOutput, error) {
-	// mock response/functionality
-	return &sns.AddPermissionOutput{}, nil
+// NewMockAWS return AWS session
+func NewMockAWS(c snsiface.SNSAPI) *MockAWS {
+	return &MockAWS{Client: c}
 }
 
 // Send notification to aws SNS
-func (s MockAWS) Send(msg string) (string, error) {
-	s.Topic = configuration.AwsTopic
+func (m *MockAWS) Send(msg string) (string, error) {
+	m.Topic = configuration.AwsTopic
 
-	result, err := s.Client.Publish(&sns.PublishInput{
+	result, err := m.Client.Publish(&sns.PublishInput{
 		Message:  &msg,
-		TopicArn: &s.Topic,
+		TopicArn: &m.Topic,
 	})
 
 	if err != nil {
@@ -42,3 +37,22 @@ func (s MockAWS) Send(msg string) (string, error) {
 
 	return msg, nil
 }
+
+// Send notification to aws SNS
+// func (s *AWS) Send(msg string) (string, error) {
+// 	s.Topic = configuration.AwsTopic
+
+// 	result, err := s.Client.Publish(&sns.PublishInput{
+// 		Message:  &msg,
+// 		TopicArn: &s.Topic,
+// 	})
+
+// 	if err != nil {
+// 		log.Println(err.Error())
+// 		return msg, err
+// 	}
+
+// 	log.Println(*result.MessageId)
+
+// 	return msg, nil
+// }
