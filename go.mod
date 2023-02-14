@@ -3,7 +3,7 @@ module github.com/deeper-x/ique
 go 1.13
 
 require (
-	github.com/aws/aws-sdk-go v1.29.16
+	github.com/aws/aws-sdk-go v1.34.0
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/golang/mock v1.4.1
